@@ -1,6 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {IoIosArrowDropleftCircle,IoIosArrowDroprightCircle} from "react-icons/io";
+import { signInWithPopup, getAuth, signOut } from "firebase/auth";
+import { provider } from '../../firebase';
+
 function Header() {
+  const [user, setUser] = useState("");
+  const auth = getAuth();
+
+  const signIn = async () => {
+    await signInWithPopup(auth, provider)
+            .then((result)=>{
+              setUser(result.user.displayName)
+            })
+            .catch((error) => alert(error.message))
+  }
+  console.log(user)
+
   return (
     <div className='headerComponent flex flex-row justify-between items-center h-[80px]'>
             <div className='headerDirection flex flex-row justify-around items-center ml-[2em] w-[5em]'>
@@ -15,8 +30,8 @@ function Header() {
               <div className='upgrade border bg-[#fff] rounded-3xl hover:bg-black'>
                 <p className='text-[15px] w-[5em] p-1 text-center hover:text-white cursor-pointer font-bold'>Upgrade</p>
               </div>
-              <div className='user border bg-black rounded-3xl hover:bg-white'>
-                <p className='text-[15px] w-[5em] p-1 text-center text-[#808080] hover:text-black cursor-pointer font-bold'>Ammar</p>
+              <div onClick={signIn} className='user border bg-black rounded-3xl hover:bg-white'>
+                <p className='text-[15px] w-[5em] p-1 text-center text-[#808080] hover:text-black cursor-pointer font-bold'>{user ? `${user}` : "Sign In" }</p>
               </div>
             </div>
         </div>

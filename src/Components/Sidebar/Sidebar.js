@@ -5,7 +5,7 @@ import {CgHome,CgSearch,CgHeart} from "react-icons/cg"
 import {BiLibrary} from "react-icons/bi"
 function Sidebar() {
   return (
-    <div className='flex flex-col h-screen bg-black'>
+    <div className='flex flex-col h-screen bg-black min-w-[12em] fixed'>
       <div className='logo w-[10em] object-contain mt-[15px] ml-[1em]'>
           <img src={One} alt="spotify" />
       </div>
